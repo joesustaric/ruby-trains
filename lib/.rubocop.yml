@@ -1,0 +1,5 @@
+# This is where you can overwrite RuboCop rules.
+# If its checking is too verbose or annoying
+# Refer to https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+Style/FrozenStringLiteralComment:
+    Enabled: false
