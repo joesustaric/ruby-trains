@@ -213,6 +213,41 @@ def there_is_a_path?
   true # assume there is for now
 end
 
+@how_many_paths = 0
+def number_of_paths(from,to,max_dist)
+  # Go through each connection
+  # see if we are over the max dist
+  # see if we are at our destination
+  # recruse, go through each of the destinations
+  @how_many_paths = 0
+  st = @n[from.to_sym]
+  fi = @n[to.to_sym]
+  result = 0
+  how_many_paths(st,fi,max_dist,0)
+  @how_many_paths
+
+end
+
+def how_many_paths(station,f,max_dist,current_dist)
+  puts "NEW station = #{station.name}"
+  old_current = current_dist
+  station.conn.each do |_,c|
+
+    if (current_dist + c.dist) < max_dist
+      puts "CURRENT DIST #{current_dist} #{station.name} to #{c.dest.name}  "
+      puts "Dest=#{c.dest.name} and finish=#{f.name}"
+      if c.dest == f
+        @how_many_paths = @how_many_paths + 1
+        puts "PING\n\n"
+      end
+      puts "recurse!"
+      how_many_paths(c.dest,f,max_dist,(current_dist + c.dist))
+    end
+    puts "looped st=#{station.name} dest=#{c.dest.name} curr_dist=#{current_dist}, new=#{current_dist + c.dist}"
+  end
+  puts "outiie"
+end
+
 route_distance 'a', 'e', 'b', 'c', 'd'
 
 number_of_trips 'c', 'c', 3
@@ -223,3 +258,6 @@ puts "!!!!Dest exact Routes =  #{@total_exect_paths}"
 
 s = shortest_path 'b', 'b'
 puts "Shortest Path a -> c = #{s}\n"
+puts "\n\n"
+x = number_of_paths 'c','c',30
+puts"c to c Paths = #{x}"
