@@ -6,3 +6,6 @@ Metrics/LineLength:
 
 Style/FrozenStringLiteralComment:
     Enabled: false
+
+Style/EmptyLinesAroundBlockBody:
+  Enabled: false
