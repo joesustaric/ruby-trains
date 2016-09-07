@@ -6,7 +6,7 @@ module RubyTrains
 
     def initialize(name)
       @name = name
-      @connections = []
+      @connections = {}
     end
   end
 end
