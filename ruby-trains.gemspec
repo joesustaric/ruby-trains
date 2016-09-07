@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.email         = ['joe8307+github@gmail.com']
   s.files         = Dir['lib/**/*'] + Dir['bin/*'] + ['README.md'] # Plus other files needed
   s.test_files    = Dir['spec/**/*']
-  s.homepage      = 'https://link.to.the.source.codez.or.homepage.com'
+  s.homepage      = 'https://https://github.com/joesustaric/ruby-trains'
   s.license       = 'MIT'
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
