@@ -8,5 +8,9 @@ module RubyTrains
       @name = name
       @connections = {}
     end
+
+    def add_connection(connection)
+      @connections[connection.station.name] = connection
+    end
   end
 end

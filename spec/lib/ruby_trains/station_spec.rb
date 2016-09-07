@@ -7,9 +7,10 @@ describe RubyTrains::Station do
 
     context 'Given a valid single character station name' do
       let(:valid_station_name) { 'a' }
-      subject { RubyTrains::Station.new valid_station_name }
 
       context 'When we create a new station' do
+        subject { RubyTrains::Station.new valid_station_name }
+
         it 'assigns the correct name' do
           expect(subject.name).to eq valid_station_name
         end
@@ -18,6 +19,25 @@ describe RubyTrains::Station do
         end
       end
 
+    end
+  end
+
+  describe '#add_connection' do
+
+    subject { RubyTrains::Station.new 'foo' }
+
+    context 'Given a connection' do
+      let(:station) { RubyTrains::Station.new 'bar' }
+      let(:connection) { RubyTrains::Connection.new station, 5 }
+
+      context 'When we add it to the station' do
+        before { subject.add_connection connection }
+
+        it 'adds the connection' do
+          expect(subject.connections.size).to eq 1
+          expect(subject.connections[station.name]).to eq connection
+        end
+      end
     end
   end
 end
