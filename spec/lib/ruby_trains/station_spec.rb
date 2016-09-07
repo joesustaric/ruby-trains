@@ -6,7 +6,6 @@ describe RubyTrains::Station do
   describe '#new' do
 
     context 'Given a valid single character station name' do
-
       let(:valid_station_name) { 'a' }
       subject { RubyTrains::Station.new valid_station_name }
 
@@ -20,12 +19,5 @@ describe RubyTrains::Station do
       end
 
     end
-
-    context 'Given a invalid names' do
-      context 'When we create a new station' do
-      end
-    end
-
   end
-
 end
