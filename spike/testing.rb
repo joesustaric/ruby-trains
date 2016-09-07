@@ -17,18 +17,6 @@ class Station
   end
 end
 
-class Connection
-  attr_accessor :station, :distance
-  def initialize(*args)
-    @station = args[0]
-    @distance = args[1]
-  end
-
-  def to_s
-    "#{@station} -> #{@distance}"
-  end
-end
-
 class Conn
   attr_accessor :dest, :dist
   def initialize(dest,dist)
