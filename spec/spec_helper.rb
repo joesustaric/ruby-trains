@@ -1,5 +1,8 @@
 require 'pry'
 require 'rspec'
+require 'simplecov'
+
+SimpleCov.start
 
 # Rspec Configuration
 # http://www.rubydoc.info/github/rspec/rspec-core/RSpec/Core/Configuration
