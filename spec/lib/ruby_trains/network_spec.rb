@@ -23,11 +23,12 @@ describe RubyTrains::Network do
         subject { RubyTrains::Network.new input }
 
         it 'creates the two stations' do
-          expect(subject.stations.size).to eq 0
+          expect(subject.stations.size).to eq 2
         end
 
         it 'adds the correct connection to station A' do
-          # expect(subject.stations.size).to eq 0
+          connections = subject.stations['A'].connections
+          expect(connections.size).to eq 1
         end
       end
     end
