@@ -16,7 +16,7 @@ module RubyTrains
 
       connections.each do |connection|
         conn_hash = make_connection_hash connection
-        conn_hash[:from].add_connection create_connection(conn_hash)
+        add_connection_to_from_station conn_hash
         add_stations conn_hash
       end
     end
@@ -32,6 +32,10 @@ module RubyTrains
     def add_stations(connection_hash)
       @stations[connection_hash[:from].name] = connection_hash[:from]
       @stations[connection_hash[:to].name] = connection_hash[:to]
+    end
+
+    def add_connection_to_from_station(conn_hash)
+      conn_hash[:from].add_connection create_connection(conn_hash)
     end
 
     def create_connection(conenction_hash)
@@ -54,6 +58,6 @@ module RubyTrains
 
     private :add_stations, :make_connection_hash, :generate_network
     private :create_connection, :get_from_station, :get_to_station
-    private :get_connection_distance
+    private :get_connection_distance, :add_connection_to_from_station
   end
 end
