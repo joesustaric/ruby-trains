@@ -43,12 +43,12 @@ module RubyTrains
     end
 
     def get_from_station(connection)
-      return Station.new(connection[0]) unless @stations.key?(connection[0])
+      return Station.new(connection[0]) unless station_exists?(connection[0])
       @stations[connection[0]]
     end
 
     def get_to_station(connection)
-      return Station.new(connection[1]) unless @stations.key?(connection[1])
+      return Station.new(connection[1]) unless station_exists?(connection[1])
       @stations[connection[1]]
     end
 
@@ -56,8 +56,13 @@ module RubyTrains
       connection[2..-1]
     end
 
+    def station_exists?(station_name)
+      @stations.key? station_name
+    end
+
     private :add_stations, :make_connection_hash, :generate_network
     private :create_connection, :get_from_station, :get_to_station
     private :get_connection_distance, :add_connection_to_from_station
+    private :station_exists?
   end
 end
