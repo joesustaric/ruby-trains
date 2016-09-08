@@ -8,21 +8,17 @@ module RubyTrains
 
     def initialize(connections = '')
       @stations = {}
-
       generate_network connections unless connections == ''
     end
 
     def generate_network(connections_input)
       # return unless connections =~ /^\w{2}\d+$/
       connections = connections_input.split(' ')
+
       connections.each do |connection|
         conn_hash = make_connection_hash connection
-
-        conn = Connection.new conn_hash[:to], conn_hash[:distance]
-        conn_hash[:from].add_connection conn
-
-        @stations[conn_hash[:from].name] = conn_hash[:from]
-        @stations[conn_hash[:to].name] = conn_hash[:to]
+        conn_hash[:from].add_connection create_connection(conn_hash)
+        add_stations conn_hash
       end
     end
 
@@ -33,5 +29,17 @@ module RubyTrains
         distance: connection[2..-1]
       }
     end
+
+    def add_stations(connection_hash)
+      @stations[connection_hash[:from].name] = connection_hash[:from]
+      @stations[connection_hash[:to].name] = connection_hash[:to]
+    end
+
+    def create_connection(conenction_hash)
+      Connection.new conenction_hash[:to], conenction_hash[:distance]
+    end
+
+    private :add_stations, :make_connection_hash, :generate_network
+    private :create_connection
   end
 end
