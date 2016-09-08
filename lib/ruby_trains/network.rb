@@ -21,11 +21,11 @@ module RubyTrains
       end
     end
 
-    def make_connection_hash(connection)
+    def make_connection_hash(conn)
       {
-        from: get_from_station(connection),
-        to: get_to_station(connection),
-        distance: get_connection_distance(connection)
+        from: get_from_station(conn),
+        to: get_to_station(conn),
+        distance: get_connection_distance(conn)
       }
     end
 
@@ -39,13 +39,13 @@ module RubyTrains
     end
 
     def get_from_station(connection)
-      return Station.new(connection[0]) unless @station[connection[0]].key?(connection[0])
-      @station[onnection[0]]
+      return Station.new(connection[0]) unless @stations.key?(connection[0])
+      @stations[connection[0]]
     end
 
     def get_to_station(connection)
-      return Station.new(connection[1]) unless @station[connection[1]].key?(connection[1])
-      @station[onnection[1]]
+      return Station.new(connection[1]) unless @stations.key?(connection[1])
+      @stations[connection[1]]
     end
 
     def get_connection_distance(connection)

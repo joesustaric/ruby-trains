@@ -26,7 +26,7 @@ describe RubyTrains::Network do
           expect(subject.stations.size).to eq 2
         end
 
-        it 'adds the correct connection to station A' do
+        it 'adds the correct connection from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 1
         end
@@ -48,12 +48,12 @@ describe RubyTrains::Network do
           expect(subject.stations.size).to eq 3
         end
 
-        it 'adds the correct connection to station A' do
+        it 'adds the correct connection from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 1
         end
 
-        it 'adds the correct connection to station B' do
+        it 'adds the correct connection from station B' do
           b_connections = subject.stations['B'].connections
           expect(b_connections.size).to eq 1
         end
@@ -76,7 +76,7 @@ describe RubyTrains::Network do
           expect(subject.stations.size).to eq 3
         end
 
-        it 'adds the correct connection to station A' do
+        it 'adds the correct connections from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 2
         end
