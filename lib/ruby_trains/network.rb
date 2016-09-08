@@ -7,7 +7,7 @@ module RubyTrains
 
     def initialize(connections = '')
       @stations = {}
-      generate_network connections unless connections == ''
+      generate_network connections unless connections.empty?
     end
 
     def generate_network(connections_input)
@@ -23,9 +23,9 @@ module RubyTrains
 
     def make_connection_hash(connection)
       {
-        from: Station.new(connection[0]),
-        to: Station.new(connection[1]),
-        distance: connection[2..-1]
+        from: get_from_station(connection),
+        to: get_to_station(connection),
+        distance: get_connection_distance(connection)
       }
     end
 
@@ -38,7 +38,22 @@ module RubyTrains
       Connection.new conenction_hash[:to], conenction_hash[:distance]
     end
 
+    def get_from_station(connection)
+      return Station.new(connection[0]) unless @station[connection[0]].key?(connection[0])
+      @station[onnection[0]]
+    end
+
+    def get_to_station(connection)
+      return Station.new(connection[1]) unless @station[connection[1]].key?(connection[1])
+      @station[onnection[1]]
+    end
+
+    def get_connection_distance(connection)
+      connection[2..-1]
+    end
+
     private :add_stations, :make_connection_hash, :generate_network
-    private :create_connection
+    private :create_connection, :get_from_station, :get_to_station
+    private :get_connection_distance
   end
 end
