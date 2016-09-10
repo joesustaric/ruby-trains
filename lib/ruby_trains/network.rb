@@ -11,7 +11,8 @@ module RubyTrains
     end
 
     def route_distance(journey = '')
-      journey = parse_journey journey unless journey.empty?
+      journey = journey_array journey unless journey.empty?
+
       distance = 0
       station = @stations[journey.shift]
       journey.each do |stop|
@@ -73,14 +74,14 @@ module RubyTrains
       @stations.key? station_name
     end
 
-    def parse_journey(journey)
+    def journey_array(journey)
       journey.split '-'
     end
 
     private :add_stations, :make_connection_hash, :generate_network
     private :create_connection, :get_from_station, :get_to_station
     private :get_connection_distance, :add_connection_to_from_station
-    private :station_exists?, :parse_journey
+    private :station_exists?, :journey_array
 
     public :route_distance
   end

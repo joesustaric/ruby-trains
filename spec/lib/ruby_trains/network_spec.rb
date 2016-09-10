@@ -220,11 +220,11 @@ describe RubyTrains::Network do
       end
 
       context 'When we ask for a more complicated journey distance' do
-        let(:result) {}
-        before {}
+        let(:expected) { 22 }
+        let(:test_route) { 'A-E-B-C-D' }
 
         it 'returns the correct distance' do
-
+          expect(complex_network.route_distance(test_route)).to eq expected
         end
       end
 
