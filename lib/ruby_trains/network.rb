@@ -21,7 +21,7 @@ module RubyTrains
     end
 
     def make_connection_hash(conn)
-      return unless conn =~ /^\w{2}\d+$/
+      return unless conn =~ /^\w{2}\d+$/ # eg AB4 AD33
       {
         from: get_from_station(conn),
         to: get_to_station(conn),
@@ -55,7 +55,7 @@ module RubyTrains
     end
 
     def get_connection_distance(connection)
-      connection[2..-1]
+      connection[2..-1].to_i
     end
 
     def station_exists?(station_name)

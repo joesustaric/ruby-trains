@@ -29,6 +29,7 @@ describe RubyTrains::Network do
         it 'adds the correct connection from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 1
+          expect(a_connections['B'].distance).to eq 1
         end
 
         it 'adds no connections from B' do
@@ -51,11 +52,13 @@ describe RubyTrains::Network do
         it 'adds the correct connection from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 1
+          expect(a_connections['B'].distance).to eq 1
         end
 
         it 'adds the correct connection from station B' do
           b_connections = subject.stations['B'].connections
           expect(b_connections.size).to eq 1
+          expect(b_connections['C'].distance).to eq 2
         end
 
         it 'adds no connections from C' do
@@ -79,11 +82,14 @@ describe RubyTrains::Network do
         it 'adds the correct connections from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 2
+          expect(a_connections['B'].distance).to eq 1
+          expect(a_connections['C'].distance).to eq 3
         end
 
         it 'adds the correct connection to station B' do
           b_connections = subject.stations['B'].connections
           expect(b_connections.size).to eq 1
+          expect(b_connections['C'].distance).to eq 2
         end
 
         it 'adds no connections from C' do
@@ -107,30 +113,38 @@ describe RubyTrains::Network do
         it 'adds the correct connections from station A' do
           a_connections = subject.stations['A'].connections
           expect(a_connections.size).to eq 3
+          expect(a_connections['B'].distance).to eq 5
+          expect(a_connections['D'].distance).to eq 5
+          expect(a_connections['E'].distance).to eq 7
         end
 
         it 'adds the correct connection to station B' do
           b_connections = subject.stations['B'].connections
           expect(b_connections.size).to eq 1
+          expect(b_connections['C'].distance).to eq 4
         end
 
         it 'adds no connections from C' do
           c_connections = subject.stations['C'].connections
           expect(c_connections.size).to eq 2
+          expect(c_connections['D'].distance).to eq 8
+          expect(c_connections['E'].distance).to eq 2
         end
 
         it 'adds the correct connection to station D' do
           d_connections = subject.stations['D'].connections
           expect(d_connections.size).to eq 2
+          expect(d_connections['E'].distance).to eq 6
+          expect(d_connections['C'].distance).to eq 8
         end
 
-        it 'adds no connections from C' do
+        it 'adds the correct connection to station D' do
           e_connections = subject.stations['E'].connections
           expect(e_connections.size).to eq 1
+          expect(e_connections['B'].distance).to eq 3
         end
 
       end
-
     end
 
     context 'Given garbage input' do
@@ -147,7 +161,7 @@ describe RubyTrains::Network do
     end
 
     context 'Given some garbage and some valid input' do
-      let(:input) { 'asd AB1 BCsdf2 BC2 233n3nfl' }
+      let(:input) { 'asd AB1 BCsdf2 BC23 233n3nfl' }
 
       context 'When we create the network' do
         subject { RubyTrains::Network.new input }
