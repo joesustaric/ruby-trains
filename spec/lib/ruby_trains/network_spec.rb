@@ -211,11 +211,11 @@ describe RubyTrains::Network do
       let(:complex_network) { RubyTrains::Network.new complex_input }
 
       context 'When we ask for a simple journey distance' do
-        let(:result) {}
-        before {}
+        let(:expected) { 5 }
+        let(:test_route) { 'A-B' }
 
         it 'returns the correct distance' do
-
+          expect(complex_network.route_distance(test_route)).to eq expected
         end
       end
 
