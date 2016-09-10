@@ -132,6 +132,47 @@ describe RubyTrains::Network do
       end
 
     end
+
+    context 'Given garbage input' do
+      let(:input) { 'bl f f44ah blah24235 blah soethnigkdf ;jdf ' }
+
+      context 'When we create the network' do
+        subject { RubyTrains::Network.new input }
+
+        it 'ignores all the garbage' do
+          expect(subject.stations.size).to eq 0
+        end
+
+      end
+    end
+
+    context 'Given some garbage and some valid input' do
+      let(:input) { 'asd AB1 BCsdf2 BC2 233n3nfl' }
+
+      context 'When we create the network' do
+        subject { RubyTrains::Network.new input }
+
+        it 'creates all the correct stations' do
+          expect(subject.stations.size).to eq 3
+        end
+
+        it 'adds the correct connection from station A' do
+          a_connections = subject.stations['A'].connections
+          expect(a_connections.size).to eq 1
+        end
+
+        it 'adds the correct connection from station B' do
+          b_connections = subject.stations['B'].connections
+          expect(b_connections.size).to eq 1
+        end
+
+        it 'adds no connections from C' do
+          c_connections = subject.stations['C'].connections
+          expect(c_connections.size).to eq 0
+        end
+
+      end
+    end
   end
 
 end

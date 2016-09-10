@@ -11,7 +11,6 @@ module RubyTrains
     end
 
     def generate_network(connections_input)
-      # return unless connections =~ /^\w{2}\d+$/
       connections = connections_input.split(' ')
 
       connections.each do |connection|
@@ -22,6 +21,7 @@ module RubyTrains
     end
 
     def make_connection_hash(conn)
+      return unless conn =~ /^\w{2}\d+$/
       {
         from: get_from_station(conn),
         to: get_to_station(conn),
@@ -29,12 +29,14 @@ module RubyTrains
       }
     end
 
-    def add_stations(connection_hash)
-      @stations[connection_hash[:from].name] = connection_hash[:from]
-      @stations[connection_hash[:to].name] = connection_hash[:to]
+    def add_stations(conn_hash)
+      return if conn_hash.nil?
+      @stations[conn_hash[:from].name] = conn_hash[:from]
+      @stations[conn_hash[:to].name] = conn_hash[:to]
     end
 
     def add_connection_to_from_station(conn_hash)
+      return if conn_hash.nil?
       conn_hash[:from].add_connection create_connection(conn_hash)
     end
 
