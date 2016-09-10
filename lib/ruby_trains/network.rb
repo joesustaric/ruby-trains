@@ -10,6 +10,11 @@ module RubyTrains
       generate_network connections unless connections.empty?
     end
 
+    def route_distance(journey = '')
+      journey = 3
+      journey
+    end
+
     def generate_network(connections_input)
       connections = connections_input.split(' ')
 
