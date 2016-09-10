@@ -21,7 +21,7 @@ module RubyTrains
     end
 
     def make_connection_hash(conn)
-      return unless conn =~ /^\w{2}\d+$/ # eg AB4 AD33
+      return unless conn =~ /^\w{2}\d+$/ # will match AB4 XY33 not BDB2 FooB34
       {
         from: get_from_station(conn),
         to: get_to_station(conn),
