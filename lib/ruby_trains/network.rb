@@ -13,9 +13,10 @@ module RubyTrains
     def route_distance(journey = '')
       journey = journey_array journey unless journey.empty?
 
-      distance = 0
       station = @stations[journey.shift]
+      distance = 0
       journey.each do |stop|
+        return -1 unless station.connections.include? stop
         distance += station.connections[stop].distance
         station = @stations[stop]
       end

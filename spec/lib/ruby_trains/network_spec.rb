@@ -204,6 +204,15 @@ describe RubyTrains::Network do
 
       end
 
+      context 'When we ask for the distance of a trip that is not valid' do
+        let(:expected) { -1 }
+        let(:test_route) { 'A-B-D' }
+
+        it 'returns -1' do
+          expect(simple_network.route_distance(test_route)).to eq expected
+        end
+      end
+
     end
 
     context 'Given a complex network' do
@@ -226,6 +235,7 @@ describe RubyTrains::Network do
         it 'returns the correct distance' do
           expect(complex_network.route_distance(test_route)).to eq expected
         end
+
       end
 
     end
