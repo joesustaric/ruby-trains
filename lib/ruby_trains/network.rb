@@ -16,8 +16,26 @@ module RubyTrains
     end
 
     def number_of_trips(trip = '', max_stops = 0)
-      return NO_ROUTE if trip.empty? || max_stops <= 0
-      1
+      return NO_ROUTE unless trip_input_vaid?(trip, max_stops)
+      trip = trip.split('-')
+      from = @stations[trip[0]]
+      to = @stations[trip[1]]
+      puts "trip=#{trip} max = #{max_stops}"
+      @x = 0
+      get_routes(from, to, max_stops, 0)
+      @x
+    end
+
+    def get_routes(from_station, to_station, max_stops, travelled)
+      from_station.connections.each do |_, c|
+        travelled += 1
+        if (to_station == c.station) && (travelled <= max_stops)
+          @x += 1
+        elsif travelled < max_stops
+          get_routes(c.station, to_station, max_stops, travelled)
+        end
+        travelled -= 1
+      end
     end
 
     def route_distance(journey = '')
@@ -89,11 +107,15 @@ module RubyTrains
       journey.split '-'
     end
 
+    def trip_input_vaid?(trip, max_stops)
+      !(trip.empty? || max_stops <= 0)
+    end
+
     private :add_stations, :make_connection_hash, :generate_network
     private :create_connection, :get_from_station, :get_to_station
     private :get_connection_distance, :add_connection_to_from_station
-    private :station_exists?, :journey_array
+    private :station_exists?, :journey_array, :trip_input_vaid?
 
-    public :route_distance
+    public :route_distance, :number_of_trips
   end
 end

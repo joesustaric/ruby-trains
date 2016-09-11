@@ -243,13 +243,28 @@ describe RubyTrains::Network do
 
   describe '#number_of_trips' do
 
-    context 'Given a simple network' do
-      let(:simple_network) { RubyTrains::Network.new 'AB1 BC2' }
+    context 'Given a basic network' do
+      let(:basic_network) { RubyTrains::Network.new 'AB1 BC2' }
 
       context 'When we ask for number of trips between 2 different stations' do
         let(:trip) { 'A-C' }
-        let(:max_stops) { 1 }
+        let(:max_stops) { 2 }
         let(:expected) { 1 }
+
+        it 'returns the correct number' do
+          expect(basic_network.number_of_trips(trip, max_stops)).to eq expected
+        end
+
+      end
+    end
+
+    context 'Given a simple network with multiple routes' do
+      let(:simple_network) { RubyTrains::Network.new 'AB1 BC2 AD4 DC3' }
+
+      context 'When we ask for # trips, with 2 diff stations & max stops=1' do
+        let(:trip) { 'A-C' }
+        let(:max_stops) { 2 }
+        let(:expected) { 2 }
 
         it 'returns the correct number' do
           expect(simple_network.number_of_trips(trip, max_stops)).to eq expected
