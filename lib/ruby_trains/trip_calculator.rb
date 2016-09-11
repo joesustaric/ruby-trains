@@ -7,30 +7,31 @@ module RubyTrains
     ROUTE_REGEX = /^([A-Za-z]+)(-[A-Za-z]+)*(-[A-Za-z]+)$/
     # Matches A-B , AA-B, Foo-Bar
     TRIP_REGEX = /^([A-Za-z]+)-([A-Za-z]+)$/
+    INITIAL_TRAVELLED_DISTANCE = 0
 
-    def self.number_of_trips(network, trip = '', max_stops = 0)
+    def self.number_of_trips(network, trip, max_stops)
       return NO_ROUTE unless trip_input_valid?(trip, max_stops)
-      trip = trip.split('-')
-      from = network.stations[trip[0]]
-      to = network.stations[trip[1]]
-      @x = 0
-      get_routes(from, to, max_stops, 0)
-      @x
+      calc_vars = initialize_number_of_trips_vars(network, trip, max_stops)
+      get_routes(calc_vars, INITIAL_TRAVELLED_DISTANCE)
+      calc_vars[:number_of_routes]
     end
 
-    def self.get_routes(from_station, to_station, max_stops, travelled)
-      from_station.connections.each do |_, c|
+    def self.get_routes(calc_vars, travelled)
+      calc_vars[:from_station].connections.each do |_, c|
         travelled += 1
-        if (to_station == c.station) && (travelled <= max_stops)
-          @x += 1
-        elsif travelled < max_stops
-          get_routes(c.station, to_station, max_stops, travelled)
+
+        if at_dest_and_under_max_stops?(calc_vars, c, travelled)
+          calc_vars[:number_of_routes] += 1
+        elsif travelled < calc_vars[:max_stops]
+          calc_vars[:from_station] = c.station
+          get_routes(calc_vars, travelled)
         end
+
         travelled -= 1
       end
     end
 
-    def self.route_distance(network, route = '')
+    def self.route_distance(network, route)
       return NO_ROUTE unless network_and_route_valid?(network, route)
 
       calc_vars = initialize_route_distance_vars(network, route)
@@ -56,6 +57,11 @@ module RubyTrains
       !route.empty? && (route =~ ROUTE_REGEX) && !network.stations.empty?
     end
 
+    def self.at_dest_and_under_max_stops?(calc_vars, connection, travelled)
+      (calc_vars[:to_station] == connection.station) &&
+        (travelled <= calc_vars[:max_stops])
+    end
+
     def self.initialize_route_distance_vars(network, route)
       r = route_array route
       {
@@ -65,8 +71,20 @@ module RubyTrains
       }
     end
 
+    def self.initialize_number_of_trips_vars(network, trip, max_stops)
+      trip = trip.split('-')
+      {
+        from_station: network.stations[trip[0]],
+        to_station: network.stations[trip[1]],
+        number_of_routes: 0,
+        max_stops: max_stops
+      }
+    end
+
     def self.trip_input_valid?(trip, max_stops)
-      !trip.empty? && (trip =~ TRIP_REGEX) && max_stops.positive?
+      !trip.empty? &&
+        (trip =~ TRIP_REGEX) &&
+        max_stops.positive?
     end
 
     public_class_method :route_distance, :number_of_trips
@@ -74,5 +92,7 @@ module RubyTrains
     private_class_method :route_array, :network_and_route_valid?
     private_class_method :initialize_route_distance_vars, :get_routes
     private_class_method :add_distance_move_to_next_station, :trip_input_valid?
+    private_class_method :initialize_number_of_trips_vars
+    private_class_method :at_dest_and_under_max_stops?
   end
 end

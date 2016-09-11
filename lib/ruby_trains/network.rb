@@ -5,9 +5,9 @@ module RubyTrains
   class Network
     attr_reader :stations
 
-    CONNECTION_REGEX = /^\w{2}\d+$/
     # will match two letters followed by numbers
     # eg AB1 XY83 not FooB1 ABar123
+    CONNECTION_REGEX = /^\w{2}\d+$/
 
     def initialize(connections = '')
       @stations = {}
