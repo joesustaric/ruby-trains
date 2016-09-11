@@ -15,6 +15,11 @@ module RubyTrains
       generate_network connections unless connections.empty?
     end
 
+    def number_of_trips(trip = '', max_stops = 0)
+      return NO_ROUTE if trip.empty? || max_stops <= 0
+      1
+    end
+
     def route_distance(journey = '')
       journey = journey_array journey unless journey.empty?
 

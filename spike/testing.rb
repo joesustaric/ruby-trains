@@ -86,7 +86,7 @@ def get_routes(path,current,dest,max,travelled)
     travelled = travelled + 1
 
     if (dest == v.dest) && (travelled <= max)
-        @total_paths = @total_paths + 1
+      @total_paths = @total_paths + 1
     elsif travelled < max
       get_routes(path,v.dest,dest,max,travelled)
     end
