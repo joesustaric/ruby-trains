@@ -10,25 +10,25 @@ module RubyTrains
         context 'Given a basic network' do
           let(:network) { Network.new 'AB1 BC2' }
 
-          context 'When we ask for number of trips between 2 different stations' do
+          context 'When we calculate number of trips between 2 different stations' do
             let(:trip) { 'A-C' }
             let(:max_stops) { 2 }
             let(:expected) { 1 }
 
             it 'returns the correct number' do
-              result = NumberOfTrips.number_of_trips(network, trip, max_stops)
+              result = NumberOfTrips.calculate(network, trip, max_stops)
               expect(result).to eq expected
             end
 
           end
 
-          context 'When we give it a garbage trip' do
+          context 'When we try to calculate a garbage trip' do
             let(:trip) { 'FooBar3095uijreglkn' }
             let(:max_stops) { 2 }
             let(:expected) { -1 }
 
             it 'returns NO_ROUTE' do
-              result = NumberOfTrips.number_of_trips(network, trip, max_stops)
+              result = NumberOfTrips.calculate(network, trip, max_stops)
               expect(result).to eq expected
             end
           end
@@ -37,13 +37,13 @@ module RubyTrains
         context 'Given a simple network with multiple routes' do
           let(:network) { Network.new 'AB1 BC2 AD4 DC3' }
 
-          context 'When we ask for # trips, with 2 diff stations & max stops=1' do
+          context 'When we calculate with 2 diff stations & max stops=1' do
             let(:trip) { 'A-C' }
             let(:max_stops) { 2 }
             let(:expected) { 2 }
 
             it 'returns the correct number' do
-              result = NumberOfTrips.number_of_trips(network, trip, max_stops)
+              result = NumberOfTrips.calculate(network, trip, max_stops)
               expect(result).to eq expected
             end
 

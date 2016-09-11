@@ -8,14 +8,14 @@ module RubyTrains
       TRIP_REGEX = /^([A-Za-z]+)-([A-Za-z]+)$/
       INITIAL_TRAVELLED_DISTANCE = 0
 
-      def self.number_of_trips(network, trip, max_stops)
+      def self.calculate(network, trip, max_stops)
         return NO_ROUTE unless trip_input_valid?(trip, max_stops)
         calc_vars = initialize_number_of_trips_vars(network, trip, max_stops)
-        get_routes(calc_vars, INITIAL_TRAVELLED_DISTANCE)
+        get_trips(calc_vars, INITIAL_TRAVELLED_DISTANCE)
         calc_vars[:number_of_routes]
       end
 
-      def self.get_routes(calc_vars, travelled_stops)
+      def self.get_trips(calc_vars, travelled_stops)
         calc_vars[:from_station].connections.each do |_, c|
           travelled_stops += 1
 
@@ -23,7 +23,7 @@ module RubyTrains
             calc_vars[:number_of_routes] += 1
           elsif travelled_stops < calc_vars[:max_stops]
             calc_vars[:from_station] = c.station
-            get_routes(calc_vars, travelled_stops)
+            get_trips(calc_vars, travelled_stops)
           end
 
           travelled_stops -= 1
@@ -50,6 +50,11 @@ module RubyTrains
           (trip =~ TRIP_REGEX) &&
           max_stops.positive?
       end
+
+      public_class_method :calculate
+
+      private_class_method :trip_input_valid?, :at_dest_and_under_max_stops?
+      private_class_method :initialize_number_of_trips_vars, :get_trips
     end
   end
 end
