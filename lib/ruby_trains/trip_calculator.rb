@@ -16,18 +16,18 @@ module RubyTrains
       calc_vars[:number_of_routes]
     end
 
-    def self.get_routes(calc_vars, travelled)
+    def self.get_routes(calc_vars, travelled_stops)
       calc_vars[:from_station].connections.each do |_, c|
-        travelled += 1
+        travelled_stops += 1
 
-        if at_dest_and_under_max_stops?(calc_vars, c, travelled)
+        if at_dest_and_under_max_stops?(calc_vars, c, travelled_stops)
           calc_vars[:number_of_routes] += 1
-        elsif travelled < calc_vars[:max_stops]
+        elsif travelled_stops < calc_vars[:max_stops]
           calc_vars[:from_station] = c.station
-          get_routes(calc_vars, travelled)
+          get_routes(calc_vars, travelled_stops)
         end
 
-        travelled -= 1
+        travelled_stops -= 1
       end
     end
 

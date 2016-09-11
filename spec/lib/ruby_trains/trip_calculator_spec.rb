@@ -105,6 +105,17 @@ module RubyTrains
           end
 
         end
+
+        context 'When we give it a garbage trip' do
+          let(:trip) { 'FooBar3095uijreglkn' }
+          let(:max_stops) { 2 }
+          let(:expected) { -1 }
+
+          it 'returns NO_ROUTE' do
+            result = TripCalculator.number_of_trips(network, trip, max_stops)
+            expect(result).to eq expected
+          end
+        end
       end
 
       context 'Given a simple network with multiple routes' do
