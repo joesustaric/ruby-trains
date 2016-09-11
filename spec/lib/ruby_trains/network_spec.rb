@@ -190,58 +190,6 @@ module RubyTrains
       end
     end
 
-    describe '#route_distance' do
-
-      context 'Given a simple network' do
-        let(:simple_network) { Network.new 'AB1 BC2' }
-
-        context 'When we ask for a simple journey distance' do
-          let(:expected) { 3 }
-          let(:test_route) { 'A-B-C' }
-
-          it 'returns the correct distance' do
-            expect(simple_network.route_distance(test_route)).to eq expected
-          end
-
-        end
-
-        context 'When we ask for the distance of a trip that is not valid' do
-          let(:expected) { -1 }
-          let(:test_route) { 'A-B-D' }
-
-          it 'returns -1' do
-            expect(simple_network.route_distance(test_route)).to eq expected
-          end
-        end
-
-      end
-
-      context 'Given a complex network' do
-        let(:complex_input) { 'AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7' }
-        let(:complex_network) { Network.new complex_input }
-
-        context 'When we ask for a simple journey distance' do
-          let(:expected) { 5 }
-          let(:test_route) { 'A-B' }
-
-          it 'returns the correct distance' do
-            expect(complex_network.route_distance(test_route)).to eq expected
-          end
-        end
-
-        context 'When we ask for a more complicated journey distance' do
-          let(:expected) { 22 }
-          let(:test_route) { 'A-E-B-C-D' }
-
-          it 'returns the correct distance' do
-            expect(complex_network.route_distance(test_route)).to eq expected
-          end
-
-        end
-
-      end
-    end
-
     describe '#number_of_trips' do
 
       context 'Given a basic network' do

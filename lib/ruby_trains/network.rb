@@ -5,7 +5,6 @@ module RubyTrains
   class Network
     attr_reader :stations
 
-    NO_ROUTE = -1
     CONNECTION_REGEX = /^\w{2}\d+$/
     # will match two letters followed by numbers
     # eg AB1 XY83 not FooB1 ABar123
@@ -36,19 +35,6 @@ module RubyTrains
         end
         travelled -= 1
       end
-    end
-
-    def route_distance(journey = '')
-      journey = journey_array journey unless journey.empty?
-
-      station = @stations[journey.shift]
-      distance = 0
-      journey.each do |stop|
-        return NO_ROUTE unless station.connections.include? stop
-        distance += station.connections[stop].distance
-        station = @stations[stop]
-      end
-      distance
     end
 
     def generate_network(connections_input)
@@ -103,10 +89,6 @@ module RubyTrains
       @stations.key? station_name
     end
 
-    def journey_array(journey)
-      journey.split '-'
-    end
-
     def trip_input_vaid?(trip, max_stops)
       !(trip.empty? || max_stops <= 0)
     end
@@ -114,8 +96,8 @@ module RubyTrains
     private :add_stations, :make_connection_hash, :generate_network
     private :create_connection, :get_from_station, :get_to_station
     private :get_connection_distance, :add_connection_to_from_station
-    private :station_exists?, :journey_array, :trip_input_vaid?
+    private :station_exists?, :trip_input_vaid?
 
-    public :route_distance, :number_of_trips
+    public  :number_of_trips
   end
 end

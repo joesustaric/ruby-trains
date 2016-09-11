@@ -3,3 +3,6 @@
 # Refer to https://github.com/bbatsov/rubocop/blob/master/config/default.yml
 Style/FrozenStringLiteralComment:
     Enabled: false
+
+# Metrics/MethodLength:
+#   Enabled: false
