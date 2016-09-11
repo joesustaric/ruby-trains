@@ -9,3 +9,7 @@ Style/FrozenStringLiteralComment:
 
 Style/EmptyLinesAroundBlockBody:
   Enabled: false
+
+# Test modules will probably be large
+Metrics/ModuleLength:
+  Enabled: false
