@@ -6,6 +6,20 @@ module RubyTrains
 
     describe '#route_distance' do
 
+      context 'Given a garbage trip input and a non empty network' do
+        let(:simple_network) { Network.new 'AB1 BC2' }
+        let(:empty_trip) { 'asdva28hfnwico43oie' }
+
+        context 'When we ask from the route distance' do
+          let(:expected) { -1 }
+
+          it 'returns -1' do
+            result = TripCalculator.route_distance simple_network, empty_trip
+            expect(result).to eq expected
+          end
+        end
+      end
+
       context 'Given a blank trip and a non empty network' do
         let(:simple_network) { Network.new 'AB1 BC2' }
         let(:empty_trip) { '' }

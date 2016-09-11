@@ -4,5 +4,6 @@
 Style/FrozenStringLiteralComment:
     Enabled: false
 
+# This is handy to enable for debugging
 # Metrics/MethodLength:
 #   Enabled: false
