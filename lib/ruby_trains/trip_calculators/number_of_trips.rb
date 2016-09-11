@@ -8,41 +8,43 @@ module RubyTrains
       TRIP_REGEX = /^([A-Za-z]+)-([A-Za-z]+)$/
       INITIAL_TRAVELLED_DISTANCE = 0
 
-      def self.calculate(network, trip, max_stops)
+      def self.calculate(network, trip, max_stops, exact)
         return NO_ROUTE unless trip_input_valid?(trip, max_stops)
-        calc_vars = initialize_number_of_trips_vars(network, trip, max_stops)
+        calc_vars = initialize_calulation_vars(network, trip, max_stops, exact)
         get_trips(calc_vars, INITIAL_TRAVELLED_DISTANCE)
         calc_vars[:number_of_routes]
       end
 
-      def self.get_trips(calc_vars, travelled_stops)
+      def self.get_trips(calc_vars, travelled)
         calc_vars[:from_station].connections.each do |_, c|
-          travelled_stops += 1
+          travelled += 1
 
-          if at_dest_and_under_max_stops?(calc_vars, c, travelled_stops)
+          if at_dest_and_in_stop_limit?(calc_vars, c, travelled)
             calc_vars[:number_of_routes] += 1
-          elsif travelled_stops < calc_vars[:max_stops]
+          elsif travelled < calc_vars[:max_stops]
             calc_vars[:from_station] = c.station
-            get_trips(calc_vars, travelled_stops)
+            get_trips(calc_vars, travelled)
           end
 
-          travelled_stops -= 1
+          travelled -= 1
         end
       end
 
-      def self.initialize_number_of_trips_vars(network, trip, max_stops)
+      def self.initialize_calulation_vars(network, trip, max_stops, exact)
         trip = trip.split('-')
         {
           from_station: network.stations[trip[0]],
           to_station: network.stations[trip[1]],
           number_of_routes: 0,
-          max_stops: max_stops
+          max_stops: max_stops,
+          exact: exact
         }
       end
 
-      def self.at_dest_and_under_max_stops?(calc_vars, connection, travelled)
-        (calc_vars[:to_station] == connection.station) &&
-          (travelled <= calc_vars[:max_stops])
+      def self.at_dest_and_in_stop_limit?(calc_vars, connection, travelled)
+        stop_limit = (travelled <= calc_vars[:max_stops])
+        stop_limit = (travelled == calc_vars[:max_stops]) if calc_vars[:exact]
+        (calc_vars[:to_station] == connection.station) && stop_limit
       end
 
       def self.trip_input_valid?(trip, max_stops)
@@ -53,8 +55,8 @@ module RubyTrains
 
       public_class_method :calculate
 
-      private_class_method :trip_input_valid?, :at_dest_and_under_max_stops?
-      private_class_method :initialize_number_of_trips_vars, :get_trips
+      private_class_method :trip_input_valid?, :at_dest_and_in_stop_limit?
+      private_class_method :initialize_calulation_vars, :get_trips
     end
   end
 end
