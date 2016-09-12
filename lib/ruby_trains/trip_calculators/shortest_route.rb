@@ -9,13 +9,14 @@ module RubyTrains
 
       def self.calculate(network, trip)
         calc_vars = initialize_calculation_vars(network, trip)
-
+        # The steps here make up dijkstra's shortest path algorithm
         while not_reached_destination?(calc_vars)
           calc_node_weights calc_vars
           determine_next_station calc_vars
-          calc_vars[:visited] << calc_vars[:current]
+          add_current_to_visited calc_vars
         end
-        calc_vars[:weighted_graph][calc_vars[:finish].name]
+
+        return_destinations_weight calc_vars
       end
 
       def self.calc_node_weights(calc_vars)
@@ -83,10 +84,18 @@ module RubyTrains
         calc_vars[:current] == calc_vars[:finish]
       end
 
+      def self.add_current_to_visited(calc_vars)
+        calc_vars[:visited] << calc_vars[:current]
+      end
+
+      def self.return_destinations_weight(calc_vars)
+        calc_vars[:weighted_graph][calc_vars[:finish].name]
+      end
+
       public_class_method :calculate
 
       private_class_method :initialize_calculation_vars, :create_weighted_graph
-      private_class_method :not_reached_destination?
+      private_class_method :not_reached_destination?, :add_current_to_visited
       private_class_method :calc_node_weights, :get_current_stations_weight
       private_class_method :determine_next_station, :current_and_finish_same?
     end
