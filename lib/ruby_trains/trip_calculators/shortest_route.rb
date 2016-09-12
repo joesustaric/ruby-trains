@@ -9,7 +9,6 @@ module RubyTrains
 
       def self.calculate(network, trip)
         calc_vars = initialize_calculation_vars(network, trip)
-        alter_vars_if_start_and_finish_equal calc_vars
         # The steps here make up dijkstra's shortest path algorithm
         while not_reached_destination? calc_vars
           calc_node_weights calc_vars
@@ -20,21 +19,17 @@ module RubyTrains
       end
 
       def self.calc_node_weights(calc_vars)
-        # for each connection
-        # add the weight of the current node + the dist to the connection (x)
-        # if it is lower than the weight of that connection then make it the new
-        # connection value.
+        # for each connection from the current node dd the weight a of
+        # the current node + the dist to all it's connections.
+        # If that new value it is lower than the weight of that current
+        # value then make it the new weight for that node.
         current_node_weight = get_current_stations_weight calc_vars
-
-        # On trips where start == finish we need to makr the first trip node
-        # weight as 0 to ensure the first iteration calcs the weights correctly
-        # then this should not happen afterwards.
 
         w_graph = calc_vars[:weighted_graph]
         calc_vars[:current].connections.each do |_, c|
-          old_w = w_graph[c.station.name]
-          new_w = current_node_weight + c.distance
-          w_graph[c.station.name] = new_w unless new_w >= old_w
+          old_weight = w_graph[c.station.name]
+          new_weight = current_node_weight + c.distance
+          w_graph[c.station.name] = new_weight unless new_weight >= old_weight
         end
       end
 
@@ -77,6 +72,10 @@ module RubyTrains
       end
 
       def self.get_current_stations_weight(calc_vars)
+        # Need to return 0 if we are calculating a shortest path
+        # between the same sation i.e A-A
+        # This is because we need to weigh this nodes value as INFINITY
+        # as it is also the destination.
         return 0 if current_and_finish_same? calc_vars
         calc_vars[:weighted_graph][calc_vars[:current].name]
       end
