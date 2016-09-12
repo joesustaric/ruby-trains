@@ -9,13 +9,13 @@ module RubyTrains
 
       def self.calculate(network, trip)
         calc_vars = initialize_calculation_vars(network, trip)
+        alter_vars_if_start_and_finish_equal calc_vars
         # The steps here make up dijkstra's shortest path algorithm
-        while not_reached_destination?(calc_vars)
+        while not_reached_destination? calc_vars
           calc_node_weights calc_vars
           determine_next_station calc_vars
           add_current_to_visited calc_vars
         end
-
         return_destinations_weight calc_vars
       end
 
@@ -29,7 +29,6 @@ module RubyTrains
         # On trips where start == finish we need to makr the first trip node
         # weight as 0 to ensure the first iteration calcs the weights correctly
         # then this should not happen afterwards.
-        # current_node_weight = 0 if current_and_finish_same? calc_vars
 
         w_graph = calc_vars[:weighted_graph]
         calc_vars[:current].connections.each do |_, c|
@@ -56,13 +55,14 @@ module RubyTrains
       def self.initialize_calculation_vars(network, trip)
         trip = trip.split('-')
         start = network.stations[trip[0]]
-        {
+        calc_vars = {
           start: start,
           current: start,
           finish: network.stations[trip[1]],
-          visited: Set.new { start },
+          visited: Set.new,
           weighted_graph: create_weighted_graph(network, start)
         }
+        alter_vars_if_start_and_finish_equal calc_vars
       end
 
       def self.create_weighted_graph(network, start_station)
@@ -77,6 +77,7 @@ module RubyTrains
       end
 
       def self.get_current_stations_weight(calc_vars)
+        return 0 if current_and_finish_same? calc_vars
         calc_vars[:weighted_graph][calc_vars[:current].name]
       end
 
@@ -92,12 +93,20 @@ module RubyTrains
         calc_vars[:weighted_graph][calc_vars[:finish].name]
       end
 
+      def self.alter_vars_if_start_and_finish_equal(calc_vars)
+        if current_and_finish_same? calc_vars
+          calc_vars[:weighted_graph][calc_vars[:start].name] = INFINITY
+        end
+        calc_vars
+      end
+
       public_class_method :calculate
 
       private_class_method :initialize_calculation_vars, :create_weighted_graph
       private_class_method :not_reached_destination?, :add_current_to_visited
       private_class_method :calc_node_weights, :get_current_stations_weight
       private_class_method :determine_next_station, :current_and_finish_same?
+      private_class_method :alter_vars_if_start_and_finish_equal
     end
   end
 end
