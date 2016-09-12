@@ -3,17 +3,17 @@ module RubyTrains
     # Class Documentation Comment
     # Need to include a good example of a class documentation.
     class RouteDistance
-      NO_ROUTE = -1
+      ERROR = -1
       # Matches A-B , AA-B-CC, Foo-Bar-A , X-Y-Z-B
       ROUTE_REGEX = /^([A-Za-z]+)(-[A-Za-z]+)*(-[A-Za-z]+)$/
 
       def self.calculate(network, route)
-        return NO_ROUTE unless network_and_route_valid?(network, route)
+        return ERROR unless network_and_route_valid?(network, route)
 
         calc_vars = initialize_route_distance_vars(network, route)
 
         calc_vars[:route].each do |stop|
-          return NO_ROUTE unless calc_vars[:station].connections.include?(stop)
+          return ERROR unless calc_vars[:station].connections.include?(stop)
           add_distance_move_to_next_station(network, calc_vars, stop)
         end
 

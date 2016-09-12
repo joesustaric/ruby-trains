@@ -14,7 +14,7 @@ module RubyTrains
           context 'When we calculate the route distance' do
             let(:expected) { -1 }
 
-            it 'returns -1' do
+            it 'returns ERROR' do
               result = RouteDistance.calculate simple_network, empty_trip
               expect(result).to eq expected
             end
@@ -28,7 +28,7 @@ module RubyTrains
           context 'When we calculate the route distance' do
             let(:expected) { -1 }
 
-            it 'returns -1' do
+            it 'returns ERROR' do
               result = RouteDistance.calculate simple_network, empty_trip
               expect(result).to eq expected
             end
@@ -42,7 +42,7 @@ module RubyTrains
           context 'When we calculate the route distance' do
             let(:expected) { -1 }
 
-            it 'returns -1' do
+            it 'returns ERROR' do
               result = RouteDistance.calculate simple_network, trip
               expect(result).to eq expected
             end

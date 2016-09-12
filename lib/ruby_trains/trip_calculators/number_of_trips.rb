@@ -3,13 +3,13 @@ module RubyTrains
     # Class Documentation Comment
     # Need to include a good example of a class documentation.
     class NumberOfTrips
-      NO_ROUTE = -1
+      ERROR = -1
       # Matches A-B , AA-B, Foo-Bar
       TRIP_REGEX = /^([A-Za-z]+)-([A-Za-z]+)$/
       INITIAL_TRAVELLED_DISTANCE = 0
 
       def self.calculate(network, trip, max_stops, exact)
-        return NO_ROUTE unless trip_input_valid?(trip, max_stops)
+        return ERROR unless trip_input_valid?(trip, max_stops)
         calc_vars = initialize_calulation_vars(network, trip, max_stops, exact)
         get_trips(calc_vars, INITIAL_TRAVELLED_DISTANCE)
         calc_vars[:number_of_routes]

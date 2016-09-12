@@ -28,7 +28,7 @@ module RubyTrains
             let(:max_stops) { 2 }
             let(:expected) { -1 }
 
-            it 'returns NO_ROUTE' do
+            it 'returns ERROR' do
               result = NumberOfTrips.calculate(network, trip, max_stops, false)
               expect(result).to eq expected
             end
