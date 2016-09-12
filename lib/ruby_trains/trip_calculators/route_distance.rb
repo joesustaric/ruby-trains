@@ -10,7 +10,7 @@ module RubyTrains
       def self.calculate(network, route)
         return ERROR unless network_and_route_valid?(network, route)
 
-        calc_vars = initialize_route_distance_vars(network, route)
+        calc_vars = initialize_calc_vars(network, route)
 
         calc_vars[:route].each do |stop|
           return ERROR unless calc_vars[:station].connections.include?(stop)
@@ -33,7 +33,7 @@ module RubyTrains
         !route.empty? && (route =~ ROUTE_REGEX) && !network.stations.empty?
       end
 
-      def self.initialize_route_distance_vars(network, route)
+      def self.initialize_calc_vars(network, route)
         r = route_array route
         {
           route: r,
@@ -45,7 +45,7 @@ module RubyTrains
       public_class_method :calculate
 
       private_class_method :route_array, :network_and_route_valid?
-      private_class_method :initialize_route_distance_vars
+      private_class_method :initialize_calc_vars
       private_class_method :add_distance_move_to_next_station
     end
   end
