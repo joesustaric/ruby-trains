@@ -5,7 +5,7 @@ module RubyTrains
   module TripCalculators
     describe NumberOfTrips do
 
-      describe '#number_of_trips' do
+      describe '#calculate' do
 
         context 'Given a basic network ' do
           let(:network) { Network.new 'AB1 BC2' }

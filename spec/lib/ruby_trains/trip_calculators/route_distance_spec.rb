@@ -5,7 +5,7 @@ module RubyTrains
   module TripCalculators
     describe RouteDistance do
 
-      describe '#route_distance' do
+      describe '#calculate' do
 
         context 'Given a garbage trip input and a non empty network' do
           let(:simple_network) { Network.new 'AB1 BC2' }
