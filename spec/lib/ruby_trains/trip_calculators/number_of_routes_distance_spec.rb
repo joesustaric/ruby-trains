@@ -13,7 +13,7 @@ module RubyTrains
           context 'When we calculate number of trips between 2 different stations'\
                   ' with a max distance < limit' do
             let(:trip) { 'A-C' }
-            let(:max_dist) { 3 }
+            let(:max_dist) { 4 }
             let(:expected) { 1 }
 
             it 'returns the correct number' do
@@ -28,7 +28,7 @@ module RubyTrains
 
           context 'When we calculate 2 diff stations & max stops < limit' do
             let(:trip) { 'A-C' }
-            let(:max_dist) { 3 }
+            let(:max_dist) { 4 }
             let(:expected) { 2 }
 
             it 'returns the correct number' do
