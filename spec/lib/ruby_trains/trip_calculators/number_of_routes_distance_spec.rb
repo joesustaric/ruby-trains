@@ -20,9 +20,23 @@ module RubyTrains
               result = NumberOfRoutesDistance.calculate(network, trip, max_dist)
               expect(result).to eq expected
             end
+          end
+        end
+
+        context 'Given a simple network with multiple routes' do
+          let(:network) { Network.new 'AB1 BC2 AD4 DC3 AC2' }
+
+          context 'When we calculate 2 diff stations & max stops < limit' do
+            let(:trip) { 'A-C' }
+            let(:max_dist) { 3 }
+            let(:expected) { 2 }
+
+            it 'returns the correct number' do
+              result = NumberOfRoutesDistance.calculate(network, trip, max_dist)
+              expect(result).to eq expected
+            end
 
           end
-
         end
       end
     end
