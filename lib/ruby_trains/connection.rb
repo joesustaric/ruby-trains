@@ -1,6 +1,7 @@
 module RubyTrains
-  # Class Documentation Comment
-  # Need to include a good example of a class documentation.
+  # Connection
+  # It's just a station with a distance value which represents the distance from
+  # the station to the connecting station.
   class Connection
     attr_reader :station, :distance
 

@@ -1,7 +1,8 @@
 module RubyTrains
   module TripCalculators
-    # Class Documentation Comment
-    # Need to include a good example of a class documentation.
+    # RouteDistance
+    # This calcualtes the distance of a given route for a network.
+    # eg A-B-C-D
     class RouteDistance
       ERROR = -1
       # Matches A-B , AA-B-CC, Foo-Bar-A , X-Y-Z-B

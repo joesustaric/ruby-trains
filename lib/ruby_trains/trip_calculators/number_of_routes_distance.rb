@@ -1,7 +1,8 @@
 module RubyTrains
   module TripCalculators
-    # Class Documentation Comment
-    # Need to include a good example of a class documentation.
+    # NumberOfRoutesDistance
+    # This will calculate how many paths there are between two stations,
+    # that have a distance < the max_distance.
     class NumberOfRoutesDistance
       def self.calculate(network, trip, max_distance)
         calc_vars = initialize_calulation_vars(network, trip, max_distance)

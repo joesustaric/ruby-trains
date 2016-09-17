@@ -1,6 +1,8 @@
 module RubyTrains
-  # Class Documentation Comment
-  # Need to include a good example of a class documentation.
+  # Station
+  # Represents a train station.
+  # It includes a name and a has of connections to other stations,
+  # keyed by name.
   class Station
     attr_reader :name, :connections
 

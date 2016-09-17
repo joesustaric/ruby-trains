@@ -2,8 +2,8 @@ require 'set'
 
 module RubyTrains
   module TripCalculators
-    # Class Documentation Comment
-    # Need to include a good example of a class documentation.
+    # ShortestRoute
+    # This calculates the length of the shortest path between two stations.
     class ShortestRoute
       INFINITY = 999_999_999 # Not infinity but a large enough number
 

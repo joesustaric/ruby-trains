@@ -1,7 +1,9 @@
 
 module RubyTrains
-  # Class Documentation Comment
-  # Need to include a good example of a class documentation.
+  # Network
+  # A network object contains a hash of unique stations that are in a network.
+  # Each station knows it's connections.
+  # It's main function is to parse the input create the stations.
   class Network
     attr_reader :stations
 

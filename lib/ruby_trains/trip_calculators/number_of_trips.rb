@@ -1,7 +1,10 @@
 module RubyTrains
   module TripCalculators
-    # Class Documentation Comment
-    # Need to include a good example of a class documentation.
+    # NumberOfTrips
+    # This calculates the number of trips between two stations.
+    # The exact flag when true will calcualte the number of trips where the
+    # number of stops = max_stops.
+    # When false it will be < or = max_stops.
     class NumberOfTrips
       ERROR = -1
       # Matches A-B , AA-B, Foo-Bar
