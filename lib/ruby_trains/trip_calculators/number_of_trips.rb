@@ -48,9 +48,7 @@ module RubyTrains
       end
 
       def self.trip_input_valid?(trip, max_stops)
-        !trip.empty? &&
-          (trip =~ TRIP_REGEX) &&
-          max_stops.positive?
+        !trip.empty? && (trip =~ TRIP_REGEX) && max_stops.positive?
       end
 
       public_class_method :calculate

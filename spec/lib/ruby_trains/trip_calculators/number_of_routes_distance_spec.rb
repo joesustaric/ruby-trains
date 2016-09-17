@@ -38,6 +38,23 @@ module RubyTrains
 
           end
         end
+
+        context 'Given a more complex network' do
+          let(:input) { 'AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7' }
+          let(:network) { Network.new input }
+
+          context 'When we calculate number of trips between the same station'\
+                  ' with a max stops < limit' do
+            let(:trip) { 'C-C' }
+            let(:max_dist) { 30 }
+            let(:expected) { 7 }
+
+            it 'returns the correct number' do
+              result = NumberOfRoutesDistance.calculate(network, trip, max_dist)
+              expect(result).to eq expected
+            end
+          end
+        end
       end
     end
   end

@@ -11,7 +11,7 @@ module RubyTrains
 
       def self.how_many_paths(current, calc_vars, current_dist)
         current.connections.each do |_, c|
-          next unless (current_dist + c.distance) < calc_vars[:max_distance]
+          next unless dist_less_than_max?(calc_vars, current_dist + c.distance)
           add_result_if_reached_destination calc_vars, c
           how_many_paths(c.station, calc_vars, (current_dist + c.distance))
         end
@@ -31,9 +31,14 @@ module RubyTrains
         }
       end
 
+      def self.dist_less_than_max?(calc_vars, distance)
+        distance < calc_vars[:max_distance]
+      end
+
       public_class_method :calculate
 
       private_class_method :initialize_calulation_vars, :how_many_paths
+      private_class_method :dist_less_than_max?
     end
   end
 end

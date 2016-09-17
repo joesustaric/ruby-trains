@@ -16,7 +16,6 @@ module RubyTrains
           return ERROR unless calc_vars[:station].connections.include?(stop)
           add_distance_move_to_next_station(network, calc_vars, stop)
         end
-
         calc_vars[:distance]
       end
 
