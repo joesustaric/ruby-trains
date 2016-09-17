@@ -1,4 +1,3 @@
-
 module RubyTrains
   # Network
   # A network object contains a hash of unique stations that are in a network.
