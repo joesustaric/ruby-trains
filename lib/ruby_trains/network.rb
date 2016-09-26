@@ -6,18 +6,12 @@ module RubyTrains
   class Network
     attr_reader :stations
 
-    # will match two letters followed by numbers
-    # eg AB1 XY83 not FooB1 ABar123
-    CONNECTION_REGEX = /^\w{2}\d+$/
-
-    def initialize(connections = '')
+    def initialize(connections = [])
       @stations = {}
       generate_network connections unless connections.empty?
     end
 
-    def generate_network(connections_input)
-      connections = connections_input.split(' ')
-
+    def generate_network(connections)
       connections.each do |connection|
         conn_hash = make_connection_hash connection
         add_connection_to_from_station conn_hash
@@ -26,7 +20,6 @@ module RubyTrains
     end
 
     def make_connection_hash(conn)
-      return unless conn =~ CONNECTION_REGEX
       {
         from: get_from_station(conn),
         to: get_to_station(conn),

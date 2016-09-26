@@ -8,7 +8,7 @@ module RubyTrains
       describe '#calculate' do
 
         context 'Given a basic network ' do
-          let(:network) { Network.new 'AB1 BC2' }
+          let(:network) { Network.new %w(AB1 BC2) }
 
           context 'When we calculate number of trips between 2 different stations'\
                   ' with a max distance < limit' do
@@ -24,7 +24,7 @@ module RubyTrains
         end
 
         context 'Given a simple network with multiple routes' do
-          let(:network) { Network.new 'AB1 BC2 AD4 DC3 AC2' }
+          let(:network) { Network.new %w(AB1 BC2 AD4 DC3 AC2) }
 
           context 'When we calculate 2 diff stations & max stops < limit' do
             let(:trip) { 'A-C' }
@@ -40,7 +40,7 @@ module RubyTrains
         end
 
         context 'Given a more complex network' do
-          let(:input) { 'AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7' }
+          let(:input) { %w(AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7) }
           let(:network) { Network.new input }
 
           context 'When we calculate number of trips between the same station'\

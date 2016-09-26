@@ -8,7 +8,7 @@ module RubyTrains
       describe '#calculate' do
 
         context 'Given a garbage trip input and a non empty network' do
-          let(:simple_network) { Network.new 'AB1 BC2' }
+          let(:simple_network) { Network.new %w(AB1 BC2) }
           let(:empty_trip) { 'asdva28hfnwico43oie' }
 
           context 'When we calculate the route distance' do
@@ -22,7 +22,7 @@ module RubyTrains
         end
 
         context 'Given a blank trip and a non empty network' do
-          let(:simple_network) { Network.new 'AB1 BC2' }
+          let(:simple_network) { Network.new %w(AB1 BC2) }
           let(:empty_trip) { '' }
 
           context 'When we calculate the route distance' do
@@ -50,7 +50,7 @@ module RubyTrains
         end
 
         context 'Given a simple network' do
-          let(:simple_network) { Network.new 'AB1 BC2' }
+          let(:simple_network) { Network.new %w(AB1 BC2) }
 
           context 'When we calculate a simple route distance' do
             let(:expected) { 3 }
@@ -65,7 +65,7 @@ module RubyTrains
         end
 
         context 'Given a complex network' do
-          let(:input) { 'AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7' }
+          let(:input) { %w(AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7) }
           let(:network) { Network.new input }
 
           context 'When we calculate a simple route distance' do
