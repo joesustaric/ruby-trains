@@ -6,7 +6,7 @@ module RubyTrains
 
     describe '#parse_network' do
       context 'When given a simple network input' do
-        let(:input) { 'AB5 ' }
+        let(:input) { ' AB5 ' }
         let(:result) { %w(AB5) }
 
         it { expect(Validator.parse_network(input)).to eq result }
@@ -36,5 +36,24 @@ module RubyTrains
       end
     end
 
+    describe '#parse_route' do
+      context 'When given a simple route' do
+        let(:input) { 'A-B ' }
+        let(:result) { %w(A B) }
+
+        it { expect(Validator.parse_route(input)).to eq result }
+      end
+
+      context 'When given no input' do
+        let(:input) { '' }
+
+        it { expect(Validator.parse_route(input)).to eq [] }
+      end
+      context 'When given incomplete input' do
+        let(:input) { 'C-' }
+
+        it { expect(Validator.parse_route(input)).to eq [] }
+      end
+    end
   end
 end
