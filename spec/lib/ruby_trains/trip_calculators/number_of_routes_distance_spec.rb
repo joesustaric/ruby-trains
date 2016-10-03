@@ -12,7 +12,7 @@ module RubyTrains
 
           context 'When we calculate number of trips between 2 different stations'\
                   ' with a max distance < limit' do
-            let(:trip) { 'A-C' }
+            let(:trip) { %w(A C) }
             let(:max_dist) { 4 }
             let(:expected) { 1 }
 
@@ -27,7 +27,7 @@ module RubyTrains
           let(:network) { Network.new %w(AB1 BC2 AD4 DC3 AC2) }
 
           context 'When we calculate 2 diff stations & max stops < limit' do
-            let(:trip) { 'A-C' }
+            let(:trip) { %w(A C) }
             let(:max_dist) { 4 }
             let(:expected) { 2 }
 
@@ -45,7 +45,7 @@ module RubyTrains
 
           context 'When we calculate number of trips between the same station'\
                   ' with a max stops < limit' do
-            let(:trip) { 'C-C' }
+            let(:trip) { %w(C C) }
             let(:max_dist) { 30 }
             let(:expected) { 7 }
 

@@ -23,7 +23,6 @@ module RubyTrains
       end
 
       def self.initialize_calulation_vars(network, trip, max_distance)
-        trip = trip.split('-')
         {
           start: network.stations[trip[0]],
           finish: network.stations[trip[1]],
