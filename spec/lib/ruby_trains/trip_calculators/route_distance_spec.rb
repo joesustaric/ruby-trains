@@ -7,20 +7,6 @@ module RubyTrains
 
       describe '#calculate' do
 
-        context 'Given a garbage trip input and a non empty network' do
-          let(:simple_network) { Network.new %w(AB1 BC2) }
-          let(:empty_trip) { 'asdva28hfnwico43oie' }
-
-          context 'When we calculate the route distance' do
-            let(:expected) { -1 }
-
-            it 'returns ERROR' do
-              result = RouteDistance.calculate simple_network, empty_trip
-              expect(result).to eq expected
-            end
-          end
-        end
-
         context 'Given a blank trip and a non empty network' do
           let(:simple_network) { Network.new %w(AB1 BC2) }
           let(:empty_trip) { '' }
@@ -54,7 +40,7 @@ module RubyTrains
 
           context 'When we calculate a simple route distance' do
             let(:expected) { 3 }
-            let(:test_trip) { 'A-B-C' }
+            let(:test_trip) { %w(A B C) }
 
             it 'returns the correct distance' do
               result = RouteDistance.calculate(simple_network, test_trip)
@@ -70,7 +56,7 @@ module RubyTrains
 
           context 'When we calculate a simple route distance' do
             let(:expected) { 5 }
-            let(:test_route) { 'A-B' }
+            let(:test_route) { %w(A B) }
 
             it 'returns the correct distance' do
               expect(RouteDistance.calculate(network, test_route)).to eq expected
@@ -79,7 +65,7 @@ module RubyTrains
 
           context 'When we calculate a more complicated route distance' do
             let(:expected) { 22 }
-            let(:test_route) { 'A-E-B-C-D' }
+            let(:test_route) { %w(A E B C D) }
 
             it 'returns the correct distance' do
               expect(RouteDistance.calculate(network, test_route)).to eq expected
