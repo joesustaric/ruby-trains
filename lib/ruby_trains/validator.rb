@@ -9,6 +9,9 @@ module RubyTrains
     # Matches A-B , AA-B, Foo-Bar
     TRIP_REGEX = /^([A-Za-z]+)-([A-Za-z]+)$/
 
+    # Matches A-B , AA-B-CC, Foo-Bar-A , X-Y-Z-B
+    ROUTE_REGEX = /^([A-Za-z]+)(-[A-Za-z]+)*(-[A-Za-z]+)$/
+
     def self.parse_network(input)
       CONNECTION_REGEX.match(input.strip).to_s.split(' ')
     end
@@ -17,8 +20,8 @@ module RubyTrains
       TRIP_REGEX.match(input.strip).to_s.split('-')
     end
 
-    def self.parse_route
-      
+    def self.parse_route(input)
+      ROUTE_REGEX.match(input.strip).to_s.split('-')
     end
   end
 end
