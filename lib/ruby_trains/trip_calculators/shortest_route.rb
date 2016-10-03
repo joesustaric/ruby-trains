@@ -48,7 +48,6 @@ module RubyTrains
       end
 
       def self.initialize_calculation_vars(network, trip)
-        trip = trip.split('-')
         start = network.stations[trip[0]]
         calc_vars = {
           start: start,

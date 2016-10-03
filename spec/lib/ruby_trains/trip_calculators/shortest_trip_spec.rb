@@ -11,7 +11,7 @@ module RubyTrains
           let(:network) { Network.new %w(AB1 BC2) }
 
           context 'When we ask for the shortest path between 2 stations' do
-            let(:trip) { 'A-C' }
+            let(:trip) { %w(A C) }
             let(:expected) { 3 }
 
             it 'returns the sum of the shortest route' do
@@ -25,7 +25,7 @@ module RubyTrains
           let(:network) { Network.new %w(AB1 BC2 AD1 DC1) }
 
           context 'When we ask for the shortest path between 2 stations' do
-            let(:trip) { 'A-C' }
+            let(:trip) { %w(A C) }
             let(:expected) { 2 }
 
             it 'returns the sum of the shortest route' do
@@ -40,7 +40,7 @@ module RubyTrains
           let(:network) { Network.new input }
 
           context 'When we ask for the shortest path between 2 diff stations' do
-            let(:trip) { 'A-C' }
+            let(:trip) { %w(A C) }
             let(:expected) { 9 }
 
             it 'returns the sum of the shortest route' do
@@ -49,7 +49,7 @@ module RubyTrains
           end
 
           context 'When we ask for the shortest path between same station' do
-            let(:trip) { 'B-B' }
+            let(:trip) { %w(B B) }
             let(:expected) { 9 }
 
             it 'returns the sum of the shortest route' do
