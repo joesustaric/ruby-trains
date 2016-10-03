@@ -13,8 +13,12 @@ module RubyTrains
       CONNECTION_REGEX.match(input.strip).to_s.split(' ')
     end
 
-    def self.parse_route(input)
+    def self.parse_trip(input)
       TRIP_REGEX.match(input.strip).to_s.split('-')
+    end
+
+    def self.parse_route
+      
     end
   end
 end

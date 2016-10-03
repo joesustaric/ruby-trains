@@ -36,23 +36,23 @@ module RubyTrains
       end
     end
 
-    describe '#parse_route' do
+    describe '#parse_trip' do
       context 'When given a simple route' do
         let(:input) { 'A-B ' }
         let(:result) { %w(A B) }
 
-        it { expect(Validator.parse_route(input)).to eq result }
+        it { expect(Validator.parse_trip(input)).to eq result }
       end
 
       context 'When given no input' do
         let(:input) { '' }
 
-        it { expect(Validator.parse_route(input)).to eq [] }
+        it { expect(Validator.parse_trip(input)).to eq [] }
       end
       context 'When given incomplete input' do
         let(:input) { 'C-' }
 
-        it { expect(Validator.parse_route(input)).to eq [] }
+        it { expect(Validator.parse_trip(input)).to eq [] }
       end
     end
   end
