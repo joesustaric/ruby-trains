@@ -4,8 +4,6 @@ module RubyTrains
     # This calcualtes the distance of a given route for a network.
     # eg A-B-C-D
     class RouteDistance
-      attr_reader :distance
-
       C_ERROR = 'connection error'.freeze
 
       def initialize(network)
