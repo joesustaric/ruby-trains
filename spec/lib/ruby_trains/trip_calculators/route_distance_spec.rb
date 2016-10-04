@@ -7,43 +7,15 @@ module RubyTrains
 
       describe '#calculate' do
 
-        context 'Given a blank trip and a non empty network' do
-          let(:simple_network) { Network.new %w(AB1 BC2) }
-          let(:empty_trip) { '' }
-
-          context 'When we calculate the route distance' do
-            let(:expected) { -1 }
-
-            it 'returns ERROR' do
-              result = RouteDistance.calculate simple_network, empty_trip
-              expect(result).to eq expected
-            end
-          end
-        end
-
-        context 'Given a non empty trip and an empty network' do
-          let(:simple_network) { Network.new }
-          let(:trip) { 'A-B-C' }
-
-          context 'When we calculate the route distance' do
-            let(:expected) { -1 }
-
-            it 'returns ERROR' do
-              result = RouteDistance.calculate simple_network, trip
-              expect(result).to eq expected
-            end
-          end
-        end
-
         context 'Given a simple network' do
           let(:simple_network) { Network.new %w(AB1 BC2) }
 
           context 'When we calculate a simple route distance' do
             let(:expected) { 3 }
-            let(:test_trip) { %w(A B C) }
+            let(:test_route) { %w(A B C) }
 
             it 'returns the correct distance' do
-              result = RouteDistance.calculate(simple_network, test_trip)
+              result = RouteDistance.calculate(simple_network, test_route)
               expect(result).to eq expected
             end
 
@@ -60,6 +32,16 @@ module RubyTrains
 
             it 'returns the correct distance' do
               expect(RouteDistance.calculate(network, test_route)).to eq expected
+            end
+          end
+
+          context 'When we try to calculate a route that does not exist' do
+            let(:test_route) { %w(A C) }
+            let(:expected) { 'connection error' }
+
+            it 'raises a connection error' do
+              expect { RouteDistance.calculate(network, test_route) }
+                .to raise_error expected
             end
           end
 
