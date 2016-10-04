@@ -27,12 +27,14 @@ module RubyTrains
       context 'When given garbage / random input' do
         let(:input) { 'sd jn sAB4jfdh akjsdhf ' }
 
-        it { expect(Validator.parse_network(input)).to eq [] }
+        it 'raises an input error exception' do
+          expect { Validator.parse_network(input) }.to raise_error 'input error'
+        end
       end
       context 'When given no input' do
-        let(:input) { '' }
-
-        it { expect(Validator.parse_network(input)).to eq [] }
+        it 'raises an input error exception' do
+          expect { Validator.parse_network('') }.to raise_error 'input error'
+        end
       end
     end
 
@@ -47,12 +49,16 @@ module RubyTrains
       context 'When given no input' do
         let(:input) { '' }
 
-        it { expect(Validator.parse_trip(input)).to eq [] }
+        it 'raises an input error exception' do
+          expect { Validator.parse_trip(input) }.to raise_error 'input error'
+        end
       end
       context 'When given incomplete input' do
         let(:input) { 'C-' }
 
-        it { expect(Validator.parse_trip(input)).to eq [] }
+        it 'raises an input error exception' do
+          expect { Validator.parse_trip(input) }.to raise_error 'input error'
+        end
       end
     end
 
@@ -86,11 +92,17 @@ module RubyTrains
       end
 
       context 'When given no input' do
-        it { expect(Validator.parse_route('')).to eq [] }
+        it 'raises an input error exception' do
+          expect { Validator.parse_route('') }.to raise_error 'input error'
+        end
       end
 
       context 'When given garbage input' do
-        it { expect(Validator.parse_route('asd..fvadA-B-Csva?sdf')).to eq [] }
+        let(:input) { 'asd..fvadA-B-Csva?sdf' }
+
+        it 'raises an input error exception' do
+          expect { Validator.parse_route(input) }.to raise_error 'input error'
+        end
       end
 
     end
