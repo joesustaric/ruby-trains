@@ -18,8 +18,7 @@ module RubyTrains
             let(:expected) { 1 }
 
             it 'returns the correct number' do
-              result = subject.calculate(trip, max_stops, false)
-              expect(result).to eq expected
+              expect(subject.calculate(trip, max_stops)).to eq expected
             end
 
           end
@@ -35,8 +34,7 @@ module RubyTrains
             let(:expected) { 2 }
 
             it 'returns the correct number' do
-              result = subject.calculate(trip, max_stops, false)
-              expect(result).to eq expected
+              expect(subject.calculate(trip, max_stops)).to eq expected
             end
 
           end
@@ -54,8 +52,7 @@ module RubyTrains
             let(:expected) { 2 }
 
             it 'returns the correct number' do
-              result = subject.calculate(trip, max_stops, false)
-              expect(result).to eq expected
+              expect(subject.calculate(trip, max_stops)).to eq expected
             end
           end
 
@@ -66,8 +63,7 @@ module RubyTrains
             let(:expected) { 3 }
 
             it 'returns the correct number' do
-              result = subject.calculate(trip, max_stops, true)
-              expect(result).to eq expected
+              expect(subject.calculate(trip, max_stops, true)).to eq expected
             end
           end
         end
