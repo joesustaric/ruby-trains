@@ -15,45 +15,47 @@ module RubyTrains
       end
 
       def calculate(trip, max_stops, exact_flag = false)
-        @calc_for_exact_dis = exact_flag
-        calc_vars = initialize_calulation_vars(trip, max_stops)
-        get_trips(calc_vars, INITIAL_TRAVELLED_DISTANCE)
+        set_ivars(trip, max_stops, exact_flag)
+        get_trips(INITIAL_TRAVELLED_DISTANCE)
         @number_of_routes
       end
 
-      def get_trips(calc_vars, travelled)
-        calc_vars[:from_station].connections.each do |_, c|
+      def get_trips(travelled)
+        @from_station.connections.each do |_, c|
           travelled += 1
 
-          if at_dest_and_in_stop_limit?(calc_vars, c, travelled)
+          if at_dest_and_in_stop_limit?(c, travelled)
             @number_of_routes += 1
-          elsif travelled < calc_vars[:max_stops]
-            calc_vars[:from_station] = c.station
-            get_trips(calc_vars, travelled)
+          elsif travelled < @max_stops
+            @from_station = c.station
+            get_trips(travelled)
           end
 
           travelled -= 1
         end
       end
 
-      def initialize_calulation_vars(trip, max_stops)
-        {
-          from_station: @network.stations[trip[0]],
-          to_station: @network.stations[trip[1]],
-          max_stops: max_stops
-        }
+      def set_ivars(trip, max_stops, exact_flag)
+        @trip = trip
+        @calc_for_exact_dist = exact_flag
+        @max_stops = max_stops
+        @from_station = @network.stations[@trip[0]]
       end
 
-      def at_dest_and_in_stop_limit?(calc_vars, connection, travelled)
-        stop_limit = (travelled <= calc_vars[:max_stops])
-        stop_limit = (travelled == calc_vars[:max_stops]) if @calc_for_exact_dis
-        (calc_vars[:to_station] == connection.station) && stop_limit
+      def to_station
+        @network.stations[@trip[1]]
+      end
+
+      def at_dest_and_in_stop_limit?(connection, travelled)
+        stop_limit = (travelled <= @max_stops)
+        stop_limit = (travelled == @max_stops) if @calc_for_exact_dist
+        (to_station == connection.station) && stop_limit
       end
 
       public :calculate
 
-      private :at_dest_and_in_stop_limit?, :initialize_calulation_vars
-      private :get_trips
+      private :at_dest_and_in_stop_limit?, :set_ivars
+      private :get_trips, :to_station
     end
   end
 end
