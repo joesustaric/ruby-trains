@@ -6,8 +6,10 @@ module RubyTrains
     # number of stops = max_stops.
     # When false it will be < or = max_stops.
     class NumberOfTrips
-      ERROR = -1
       INITIAL_TRAVELLED_DISTANCE = 0
+      FROM_STATION_TRIP_INDEX = 0
+      TO_STATION_TRIP_INDEX = 1
+      A_HOP = 1
 
       def initialize(network)
         @number_of_routes = 0
@@ -22,16 +24,16 @@ module RubyTrains
 
       def get_trips(travelled)
         @from_station.connections.each do |_, c|
-          travelled += 1
+          travelled += A_HOP
 
           if at_dest_and_in_stop_limit?(c, travelled)
-            @number_of_routes += 1
+            @number_of_routes += A_HOP
           elsif travelled < @max_stops
             @from_station = c.station
             get_trips(travelled)
           end
 
-          travelled -= 1
+          travelled -= A_HOP
         end
       end
 
@@ -39,11 +41,11 @@ module RubyTrains
         @trip = trip
         @calc_for_exact_dist = exact_flag
         @max_stops = max_stops
-        @from_station = @network.stations[@trip[0]]
+        @from_station = @network.stations[@trip[FROM_STATION_TRIP_INDEX]]
       end
 
       def to_station
-        @network.stations[@trip[1]]
+        @network.stations[@trip[TO_STATION_TRIP_INDEX]]
       end
 
       def at_dest_and_in_stop_limit?(connection, travelled)
