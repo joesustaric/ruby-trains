@@ -56,8 +56,7 @@ module RubyTrains
 
       public :calculate
 
-      private :at_dest_and_in_stop_limit?, :set_ivars
-      private :get_trips, :to_station
+      private :at_dest_and_in_stop_limit?, :set_ivars, :get_trips, :to_station
     end
   end
 end
