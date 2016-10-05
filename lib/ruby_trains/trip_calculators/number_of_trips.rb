@@ -9,12 +9,13 @@ module RubyTrains
       ERROR = -1
       INITIAL_TRAVELLED_DISTANCE = 0
 
-      def initialize
+      def initialize(network)
         @number_of_routes = 0
+        @network = network
       end
 
-      def calculate(network, trip, max_stops, exact)
-        calc_vars = initialize_calulation_vars(network, trip, max_stops, exact)
+      def calculate(trip, max_stops, exact)
+        calc_vars = initialize_calulation_vars(trip, max_stops, exact)
         get_trips(calc_vars, INITIAL_TRAVELLED_DISTANCE)
         @number_of_routes
       end
@@ -34,10 +35,10 @@ module RubyTrains
         end
       end
 
-      def initialize_calulation_vars(network, trip, max_stops, exact)
+      def initialize_calulation_vars(trip, max_stops, exact)
         {
-          from_station: network.stations[trip[0]],
-          to_station: network.stations[trip[1]],
+          from_station: @network.stations[trip[0]],
+          to_station: @network.stations[trip[1]],
           max_stops: max_stops,
           exact: exact
         }
