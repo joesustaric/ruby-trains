@@ -14,8 +14,9 @@ module RubyTrains
         @network = network
       end
 
-      def calculate(trip, max_stops, exact)
-        calc_vars = initialize_calulation_vars(trip, max_stops, exact)
+      def calculate(trip, max_stops, exact_flag = false)
+        @calc_for_exact_dis = exact_flag
+        calc_vars = initialize_calulation_vars(trip, max_stops)
         get_trips(calc_vars, INITIAL_TRAVELLED_DISTANCE)
         @number_of_routes
       end
@@ -35,18 +36,17 @@ module RubyTrains
         end
       end
 
-      def initialize_calulation_vars(trip, max_stops, exact)
+      def initialize_calulation_vars(trip, max_stops)
         {
           from_station: @network.stations[trip[0]],
           to_station: @network.stations[trip[1]],
-          max_stops: max_stops,
-          exact: exact
+          max_stops: max_stops
         }
       end
 
       def at_dest_and_in_stop_limit?(calc_vars, connection, travelled)
         stop_limit = (travelled <= calc_vars[:max_stops])
-        stop_limit = (travelled == calc_vars[:max_stops]) if calc_vars[:exact]
+        stop_limit = (travelled == calc_vars[:max_stops]) if @calc_for_exact_dis
         (calc_vars[:to_station] == connection.station) && stop_limit
       end
 
