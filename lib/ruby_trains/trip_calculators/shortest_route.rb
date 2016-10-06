@@ -13,7 +13,7 @@ module RubyTrains
 
       def calculate(trip)
         extract_ivars trip
-        calc_vars = initialize_calculation_vars(trip)
+        calc_vars = initialize_calculation_vars
         # The steps here make up dijkstra's shortest path algorithm
         while not_reached_destination? calc_vars
           calc_node_weights calc_vars
@@ -52,9 +52,8 @@ module RubyTrains
         @current_station = next_station
       end
 
-      def initialize_calculation_vars(trip)
+      def initialize_calculation_vars
         calc_vars = {
-          finish: @network.stations[trip[1]],
           visited: Set.new,
           weighted_graph: create_weighted_graph
         }
@@ -64,6 +63,7 @@ module RubyTrains
       def extract_ivars(trip)
         @start_station = @network.stations[trip[0]]
         @current_station = @start_station
+        @finish_station = @network.stations[trip[1]]
       end
 
       def create_weighted_graph
@@ -74,7 +74,7 @@ module RubyTrains
       end
 
       def not_reached_destination?(calc_vars)
-        !calc_vars[:visited].include?(calc_vars[:finish])
+        !calc_vars[:visited].include?(@finish_station)
       end
 
       def get_current_stations_weight(calc_vars)
@@ -82,12 +82,12 @@ module RubyTrains
         # between the same sation i.e A-A
         # This is because we need to weigh this nodes value as INFINITY
         # as it is also the destination.
-        return 0 if current_and_finish_same? calc_vars
+        return 0 if current_and_finish_same?
         calc_vars[:weighted_graph][@current_station.name]
       end
 
-      def current_and_finish_same?(calc_vars)
-        @current_station == calc_vars[:finish]
+      def current_and_finish_same?
+        @current_station == @finish_station
       end
 
       def add_current_to_visited(calc_vars)
@@ -95,11 +95,11 @@ module RubyTrains
       end
 
       def return_destinations_weight(calc_vars)
-        calc_vars[:weighted_graph][calc_vars[:finish].name]
+        calc_vars[:weighted_graph][@finish_station.name]
       end
 
       def alter_vars_if_start_and_finish_equal(calc_vars)
-        if current_and_finish_same? calc_vars
+        if current_and_finish_same?
           calc_vars[:weighted_graph][@start_station.name] = INFINITY
         end
         calc_vars
