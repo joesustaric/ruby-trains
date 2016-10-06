@@ -31,7 +31,7 @@ module RubyTrains
         current_node_weight = get_current_stations_weight calc_vars
 
         w_graph = calc_vars[:weighted_graph]
-        calc_vars[:current].connections.each do |_, c|
+        @current_station.connections.each do |_, c|
           old_weight = w_graph[c.station.name]
           new_weight = current_node_weight + c.distance
           w_graph[c.station.name] = new_weight unless new_weight >= old_weight
@@ -43,18 +43,17 @@ module RubyTrains
         next_station = nil
         w_graph = calc_vars[:weighted_graph]
 
-        calc_vars[:current].connections.each do |_, c|
+        @current_station.connections.each do |_, c|
           if w_graph[c.station.name] <= next_shortest_dist
             next_station = c.station
             next_shortest_dist = c.distance
           end
         end
-        calc_vars[:current] = next_station
+        @current_station = next_station
       end
 
       def initialize_calculation_vars(trip)
         calc_vars = {
-          current: @start_station,
           finish: @network.stations[trip[1]],
           visited: Set.new,
           weighted_graph: create_weighted_graph
@@ -64,6 +63,7 @@ module RubyTrains
 
       def extract_ivars(trip)
         @start_station = @network.stations[trip[0]]
+        @current_station = @start_station
       end
 
       def create_weighted_graph
@@ -83,15 +83,15 @@ module RubyTrains
         # This is because we need to weigh this nodes value as INFINITY
         # as it is also the destination.
         return 0 if current_and_finish_same? calc_vars
-        calc_vars[:weighted_graph][calc_vars[:current].name]
+        calc_vars[:weighted_graph][@current_station.name]
       end
 
       def current_and_finish_same?(calc_vars)
-        calc_vars[:current] == calc_vars[:finish]
+        @current_station == calc_vars[:finish]
       end
 
       def add_current_to_visited(calc_vars)
-        calc_vars[:visited] << calc_vars[:current]
+        calc_vars[:visited] << @current_station
       end
 
       def return_destinations_weight(calc_vars)
