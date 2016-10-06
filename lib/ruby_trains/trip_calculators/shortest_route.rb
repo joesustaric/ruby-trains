@@ -23,7 +23,7 @@ module RubyTrains
       end
 
       def calc_node_weights
-        # for each connection from the current node dd the weight a of
+        # for each connection from the current node add the weight a of
         # the current node + the dist to all it's connections.
         # If that new value it is lower than the weight of that current
         # value then make it the new weight for that node.
