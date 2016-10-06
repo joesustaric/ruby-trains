@@ -6,7 +6,7 @@ module RubyTrains
     # number of stops = max_stops.
     # When false it will be < or = max_stops.
     class NumberOfTrips
-      INITIAL_TRAVELLED_DISTANCE = 0
+      INITIAL_TRAVELLED_HOPS = 0
       FROM_STATION_TRIP_INDEX = 0
       TO_STATION_TRIP_INDEX = 1
       A_HOP = 1

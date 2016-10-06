@@ -9,6 +9,7 @@ module RubyTrains
 
         context 'Given a basic network ' do
           let(:network) { Network.new %w(AB1 BC2) }
+          let(:subject) { NumberOfRoutesDistance.new network }
 
           context 'When we calculate number of trips between 2 different stations'\
                   ' with a max distance < limit' do
@@ -17,7 +18,7 @@ module RubyTrains
             let(:expected) { 1 }
 
             it 'returns the correct number' do
-              result = NumberOfRoutesDistance.calculate(network, trip, max_dist)
+              result = subject.calculate(trip, max_dist)
               expect(result).to eq expected
             end
           end
@@ -25,6 +26,7 @@ module RubyTrains
 
         context 'Given a simple network with multiple routes' do
           let(:network) { Network.new %w(AB1 BC2 AD4 DC3 AC2) }
+          let(:subject) { NumberOfRoutesDistance.new network }
 
           context 'When we calculate 2 diff stations & max stops < limit' do
             let(:trip) { %w(A C) }
@@ -32,7 +34,7 @@ module RubyTrains
             let(:expected) { 2 }
 
             it 'returns the correct number' do
-              result = NumberOfRoutesDistance.calculate(network, trip, max_dist)
+              result = subject.calculate(trip, max_dist)
               expect(result).to eq expected
             end
 
@@ -42,6 +44,7 @@ module RubyTrains
         context 'Given a more complex network' do
           let(:input) { %w(AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7) }
           let(:network) { Network.new input }
+          let(:subject) { NumberOfRoutesDistance.new network }
 
           context 'When we calculate number of trips between the same station'\
                   ' with a max stops < limit' do
@@ -50,7 +53,7 @@ module RubyTrains
             let(:expected) { 7 }
 
             it 'returns the correct number' do
-              result = NumberOfRoutesDistance.calculate(network, trip, max_dist)
+              result = subject.calculate(trip, max_dist)
               expect(result).to eq expected
             end
           end
