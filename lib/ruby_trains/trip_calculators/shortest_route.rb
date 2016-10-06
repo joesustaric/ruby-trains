@@ -38,10 +38,9 @@ module RubyTrains
       def determine_next_station
         next_shortest_dist = INFINITY
         next_station = nil
-        w_graph = @w_graph
 
         @current_station.connections.each do |_, c|
-          if w_graph[c.station.name] <= next_shortest_dist
+          if @w_graph[c.station.name] <= next_shortest_dist
             next_station = c.station
             next_shortest_dist = c.distance
           end
