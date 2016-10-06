@@ -18,19 +18,19 @@ module RubyTrains
 
       def calculate(trip, max_stops, exact_flag = false)
         set_ivars(trip, max_stops, exact_flag)
-        get_trips(INITIAL_TRAVELLED_DISTANCE)
+        current_station = @network.stations[@trip[FROM_STATION_TRIP_INDEX]]
+        get_trips(current_station, INITIAL_TRAVELLED_HOPS)
         @number_of_routes
       end
 
-      def get_trips(travelled)
-        @from_station.connections.each do |_, c|
+      def get_trips(current_station, travelled)
+        current_station.connections.each do |_, c|
           travelled += A_HOP
 
           if at_dest_and_in_stop_limit?(c, travelled)
             @number_of_routes += A_HOP
           elsif travelled < @max_stops
-            @from_station = c.station
-            get_trips(travelled)
+            get_trips(c.station, travelled)
           end
 
           travelled -= A_HOP
@@ -41,7 +41,6 @@ module RubyTrains
         @trip = trip
         @calc_for_exact_dist = exact_flag
         @max_stops = max_stops
-        @from_station = @network.stations[@trip[FROM_STATION_TRIP_INDEX]]
       end
 
       def to_station
