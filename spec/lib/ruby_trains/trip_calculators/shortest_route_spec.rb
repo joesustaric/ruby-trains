@@ -9,13 +9,14 @@ module RubyTrains
 
         context 'Given a basic network' do
           let(:network) { Network.new %w(AB1 BC2) }
+          let(:subject) { ShortestRoute.new network }
 
           context 'When we ask for the shortest path between 2 stations' do
             let(:trip) { %w(A C) }
             let(:expected) { 3 }
 
             it 'returns the sum of the shortest route' do
-              expect(ShortestRoute.calculate(network, trip)).to eq expected
+              expect(subject.calculate(trip)).to eq expected
             end
           end
 
@@ -23,13 +24,14 @@ module RubyTrains
 
         context 'Given a simple network with multiple routes to destination' do
           let(:network) { Network.new %w(AB1 BC2 AD1 DC1) }
+          let(:subject) { ShortestRoute.new network }
 
           context 'When we ask for the shortest path between 2 stations' do
             let(:trip) { %w(A C) }
             let(:expected) { 2 }
 
             it 'returns the sum of the shortest route' do
-              expect(ShortestRoute.calculate(network, trip)).to eq expected
+              expect(subject.calculate(trip)).to eq expected
             end
           end
 
@@ -38,13 +40,14 @@ module RubyTrains
         context 'Given a more complicated network' do
           let(:input) { %w(AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7) }
           let(:network) { Network.new input }
+          let(:subject) { ShortestRoute.new network }
 
           context 'When we ask for the shortest path between 2 diff stations' do
             let(:trip) { %w(A C) }
             let(:expected) { 9 }
 
             it 'returns the sum of the shortest route' do
-              expect(ShortestRoute.calculate(network, trip)).to eq expected
+              expect(subject.calculate(trip)).to eq expected
             end
           end
 
@@ -53,7 +56,7 @@ module RubyTrains
             let(:expected) { 9 }
 
             it 'returns the sum of the shortest route' do
-              expect(ShortestRoute.calculate(network, trip)).to eq expected
+              expect(subject.calculate(trip)).to eq expected
             end
           end
         end
