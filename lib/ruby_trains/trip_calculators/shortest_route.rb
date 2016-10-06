@@ -12,6 +12,7 @@ module RubyTrains
       end
 
       def calculate(trip)
+        extract_ivars trip
         calc_vars = initialize_calculation_vars(trip)
         # The steps here make up dijkstra's shortest path algorithm
         while not_reached_destination? calc_vars
@@ -52,21 +53,23 @@ module RubyTrains
       end
 
       def initialize_calculation_vars(trip)
-        start = @network.stations[trip[0]]
         calc_vars = {
-          start: start,
-          current: start,
+          current: @start_station,
           finish: @network.stations[trip[1]],
           visited: Set.new,
-          weighted_graph: create_weighted_graph(start)
+          weighted_graph: create_weighted_graph
         }
         alter_vars_if_start_and_finish_equal calc_vars
       end
 
-      def create_weighted_graph(start_station)
+      def extract_ivars(trip)
+        @start_station = @network.stations[trip[0]]
+      end
+
+      def create_weighted_graph
         w_graph = {}
         @network.stations.each { |_, s| w_graph[s.name] = INFINITY }
-        w_graph[start_station.name] = 0
+        w_graph[@start_station.name] = 0
         w_graph
       end
 
@@ -97,7 +100,7 @@ module RubyTrains
 
       def alter_vars_if_start_and_finish_equal(calc_vars)
         if current_and_finish_same? calc_vars
-          calc_vars[:weighted_graph][calc_vars[:start].name] = INFINITY
+          calc_vars[:weighted_graph][@start_station.name] = INFINITY
         end
         calc_vars
       end
@@ -108,7 +111,7 @@ module RubyTrains
       private :not_reached_destination?, :add_current_to_visited
       private :calc_node_weights, :get_current_stations_weight
       private :determine_next_station, :current_and_finish_same?
-      private :alter_vars_if_start_and_finish_equal
+      private :alter_vars_if_start_and_finish_equal, :extract_ivars
     end
   end
 end
