@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-# This is the file where you would initiate your cli application if that is what you were building
-# Something similar to the example below.
-
 require 'ruby_trains/cli'
 
 RubyTrains::CLI.run
