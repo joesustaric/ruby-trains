@@ -2,11 +2,13 @@ PATH
   remote: .
   specs:
     ruby-trains (0.0.1)
+      clamp (~> 1.0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.3.0)
+    clamp (1.0.0)
     coderay (1.1.1)
     diff-lcs (1.2.5)
     docile (1.1.5)

@@ -3,10 +3,6 @@
 # This is the file where you would initiate your cli application if that is what you were building
 # Something similar to the example below.
 
-#require 'my_project/cli'
+require 'ruby_trains/cli'
 
-#MyProject::CLI.start(ARGV)
-
-
-# To create CLI apps try Thor => http://whatisthor.com/
-# or Clamp => https://github.com/mdub/clamp
+RubyTrains::CLI.run
