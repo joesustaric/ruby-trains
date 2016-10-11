@@ -61,6 +61,14 @@ module RubyTrains
           end
         end
 
+        context 'Given a network with a station that cannot be travelled to' do
+          context 'When we ask for the shortest distance between two ' \
+                  'stations that cannot be reached' do
+            it 'throws some kind of error' do
+            end
+          end
+        end
+
       end
     end
   end
