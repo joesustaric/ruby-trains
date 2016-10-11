@@ -8,8 +8,14 @@ require 'ruby_trains/version'
 Gem::Specification.new do |s|
   s.name          = 'ruby-trains'
   s.version       = RubyTrains::VERSION
-  s.summary       = 'Short one liner of what this gem does.'
-  s.description   = 'A longer explanation of what this gem does'
+  s.summary       = 'A cli that calculates some stuff with a train network.'
+  s.description   = 'Given an input of a train network with one way ' \
+                    'connections, this tool can determine a number of things.' \
+                    'The number of trips between two stations. ' \
+                    'The distance for a given route.' \
+                    'The shortest path between two stations.' \
+                    'How many paths are there between two stations, given a ' \
+                    'hop constraint.'
   s.authors       = ['Joe Sustaric']
   s.email         = ['joe8307+github@gmail.com']
   s.files         = Dir['lib/**/*'] + Dir['bin/*'] + ['README.md'] # Plus other files needed
