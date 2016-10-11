@@ -8,3 +8,8 @@ require 'ruby_trains/trip_calculators/number_of_routes_distance'
 # static methods
 # mock calculator objects
 # it validates and
+
+module RubyTrains
+  class TripCalculator
+  end
+end
