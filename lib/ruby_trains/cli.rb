@@ -14,7 +14,7 @@ module RubyTrains
       the_name = words.join(' ')
       the_name.upcase! if loud?
       iterations.times do
-        puts "hi #{the_name}"
+        puts "hi #{the_name}.."
       end
     end
   end
