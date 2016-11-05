@@ -19,10 +19,10 @@ end
 
 desc 'Build this Gem'
 task :build do
-    system "gem build my-project.gemspec"
+  system "gem build ruby-trains.gemspec"
 end
 
 desc 'Publish the gem to rubygems.org'
 task :publish => :build do
-    system "gem push my-project-#{MyProject::VERSION}.gem"
+  system "gem push ruby-trains-#{MyProject::VERSION}.gem"
 end
