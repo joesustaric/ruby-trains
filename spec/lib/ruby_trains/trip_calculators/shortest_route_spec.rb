@@ -8,7 +8,7 @@ module RubyTrains
       describe '#calculate' do
 
         context 'Given a basic network' do
-          let(:network) { Network.new %w(AB1 BC2) }
+          let(:network) { %w(AB1 BC2) }
           let(:subject) { ShortestRoute.new network }
 
           context 'When we ask for the shortest path between 2 stations' do
@@ -23,7 +23,7 @@ module RubyTrains
         end
 
         context 'Given a simple network with multiple routes to destination' do
-          let(:network) { Network.new %w(AB1 BC2 AD1 DC1) }
+          let(:network) { %w(AB1 BC2 AD1 DC1) }
           let(:subject) { ShortestRoute.new network }
 
           context 'When we ask for the shortest path between 2 stations' do
@@ -38,8 +38,7 @@ module RubyTrains
         end
 
         context 'Given a more complicated network' do
-          let(:input) { %w(AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7) }
-          let(:network) { Network.new input }
+          let(:network) { %w(AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7) }
           let(:subject) { ShortestRoute.new network }
 
           context 'When we ask for the shortest path between 2 diff stations' do

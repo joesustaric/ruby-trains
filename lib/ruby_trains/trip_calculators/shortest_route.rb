@@ -8,7 +8,7 @@ module RubyTrains
       INFINITY = 999_999_999 # Not infinity but a large enough number
 
       def initialize(network)
-        @network = network
+        @network = Network.new network
       end
 
       def calculate(trip)

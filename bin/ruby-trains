@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'ruby_trains/cli'
+require 'ruby_trains'
 
 RubyTrains::CLI.run

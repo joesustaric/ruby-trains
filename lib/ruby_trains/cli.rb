@@ -3,19 +3,16 @@ require 'clamp'
 module RubyTrains
   # Doco
   class CLI < Clamp::Command
-    option '--loud', :flag, 'say it loud'
-    option ['-n', '--iterations'], 'N', 'say it N times', default: 1 do |s|
-      Integer(s)
-    end
+    # option '--loud', :flag, 'say it loud'
+    option ['-s', '--shortest-route'], 'TRIP', 'return the shortest route' \
+      ' between two stations'
 
-    parameter 'NAME ...', 'who to say hello to', attribute_name: :words
+    parameter 'NETWORK ...', 'the train network', attribute_name: :network
 
     def execute
-      the_name = words.join(' ')
-      the_name.upcase! if loud?
-      iterations.times do
-        puts "hi #{the_name}.."
-      end
+      net = network.inject('') { |a, e| a + ' ' + e }
+      @calc = TripCalculator.new net
+      puts @calc.execute_route_dist_calc shortest_route
     end
   end
 end
